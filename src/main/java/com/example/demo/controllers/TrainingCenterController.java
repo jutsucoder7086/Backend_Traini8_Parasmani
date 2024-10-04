@@ -1,4 +1,5 @@
 package com.example.demo.controllers;
+import com.example.demo.customExceptions.CustomBadRequestException;
 import com.example.demo.customExceptions.CustomDuplicateEntryException;
 import com.example.demo.customExceptions.CustomInternalServerErrorException;
 import com.example.demo.entities.TrainingCenter;
@@ -11,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeParseException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 
@@ -44,11 +48,22 @@ public class TrainingCenterController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TrainingCenter>> fetchTrainingCenters(){
+    public ResponseEntity<List<TrainingCenter>> fetchTrainingCenters(
+            @RequestParam(required = false) Collection<String> cities,
+            @RequestParam(required = false) String createdOnStart,
+            @RequestParam(required = false) String createdOnEnd
+    ){
         try{
-            return ResponseEntity.ok(this.trainingCenterService.fetchTrainingCenters());
+            return ResponseEntity.ok(this.trainingCenterService.fetchTrainingCenters(cities,createdOnStart,createdOnEnd));
+        }catch(CustomBadRequestException e){
+            logger.error("CustomBadRequestException in fetchTrainingCenters() :: {}",e.getMessage());
+            throw new CustomBadRequestException(e.getMessage());
+        }catch(DateTimeParseException e){
+            logger.error("DateTimeParseException in fetchTrainingCenters() :: {}",e.getMessage());
+            throw new CustomBadRequestException("Date should be in 'yyyy-mm-dd' format");
         }catch(Exception e){
             logger.error("Exception in fetchTrainingCenters() :: {}",e.getMessage());
+            e.printStackTrace();
             throw new CustomInternalServerErrorException("Something went wrong");
         }
     }
