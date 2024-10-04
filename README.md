@@ -36,3 +36,5 @@ Follow the steps below to set up and run the project locally:
 ```sh
 git clone <repository-url>
 cd <repository-directory>
+
+## Database Configuration
