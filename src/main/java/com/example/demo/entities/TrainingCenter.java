@@ -54,5 +54,6 @@ public class TrainingCenter {
     private String contactPhone;
 
     // Getters and Setters
+
 }
 

@@ -1,7 +1,4 @@
-package com.example.demo;
-import com.example.demo.customExceptions.CustomDuplicateEntryException;
-import com.example.demo.customExceptions.CustomInternalServerErrorException;
-import org.springframework.dao.DataIntegrityViolationException;
+package com.example.demo.customExceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
