@@ -110,9 +110,24 @@ You can now run SQL queries to view or manipulate your data in the H2 database.
 - **Method**: `GET`
 - **Content-Type**: `application/json`
 - **Description**: This API endpoint retrieves all stored training centers.
+- **Parameters**:
+- **`cities`** (optional, `Collection<String>`): Filter training centers by city names. Example: `?cities=Mumbai,Delhi`
+- **`createdOnStart`** (optional, `String`): Filter training centers that were created on or after this date. Format: `yyyy-MM-dd`. Example: `?createdOnStart=2024-01-01`
+- **`createdOnEnd`** (optional, `String`): Filter training centers that were created on or before this date. Format: `yyyy-MM-dd`. Example: `?createdOnEnd=2024-12-31`
+
+**Request Example**:
+```
+http://localhost:8080/api/training-centers?cities=Bengaluru,Mumbai&createdOnStart=2024-10-05&createdOnEnd=2024-10-05
+```
 
 **Response**:
 - **Success**: Returns a list of all stored training centers in JSON format. If no training centers are available, it returns an empty list.
+- **Errors**: Returns an appropriate error message if the end date is earlier than the start date.
+
+**Note**:
+- If `cities` is null, the endpoint will return results for all cities present in the table.
+- If `createdOnStart` is null, the endpoint will fetch the earliest date available in the table.
+- If `createdOnEnd` is null, the endpoint will fetch the latest date available in the table.
 
 **Example Response**:
 ```json
