@@ -14,7 +14,7 @@ import java.util.List;
 public interface TrainingCenterRepository extends JpaRepository<TrainingCenter, Long> {
 
 
-    @Query(value = "SELECT * FROM training_center WHERE city in(:cities) and CAST(created_on AS DATE) between :createdOnStart and :createdOnEnd",nativeQuery = true)
+    @Query(value = "SELECT * FROM training_center WHERE city in(:cities) and CAST(created_on AS DATE) between :createdOnStart and :createdOnEnd order by created_on desc",nativeQuery = true)
     List<TrainingCenter> findByAddress_CityInAndCreatedOnBetween(Collection<String> cities, String createdOnStart, String createdOnEnd);
 
     @Query(value = "select distinct city from training_center",nativeQuery = true)

@@ -191,7 +191,6 @@ training-center-api/
 Handling		    	
  │    │    └── resources/
  │    │         ├── application.properties   # Application Configuration
- │    │         └── data.sql                 # Initial data for H2 (if needed)
  └── pom.xml                                 # Maven Dependencies
 ```
 
